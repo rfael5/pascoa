@@ -1,0 +1,244 @@
+.App {
+  text-align: center;
+  
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    
+  }
+  
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.submit-btn {
+  position: relative;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid #d04186;
+  background: linear-gradient(45deg, #991C52, #d04186, #d04186, #991C52);
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-align: center;
+  overflow: hidden;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:hover,
+.submit-btn:focus,
+.submit-btn:active {
+  background: linear-gradient(45deg, #991C52, #d04186, #991C52);
+  color: #d04186;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/* Efeito de gradiente animado */
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: white;
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 10px;
+}
+
+.submit-btn:hover::before,
+.submit-btn:focus::before,
+.submit-btn:active::before {
+  opacity: 1;
+}
+
+/* Efeito de Foco para Acessibilidade */
+.submit-btn:focus {
+  outline: none;
+  box-shadow: 0 0 8px #991C52;
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: box-shadow 0.3s;
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 8px #991C52;
+}
+
+section {
+  
+  border-radius: 15px;
+  position: relative;
+  border: 1px solid #991C52;
+  padding-top: 37px;
+  background: #991C52;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.7);
+}
+section.positioned {
+  position: absolute;
+  top:100px;
+  left:100px;
+  width:800px;
+  box-shadow: 0 0 15px #333;
+}
+.container {
+  border-radius: 15px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+table {
+  border-spacing: 0;
+  width:100%;
+}
+td + td {
+  border-left:1px solid #eee;
+}
+td, th {
+  border-bottom:1px solid #eee;
+  background: #ddd;
+  color: #000;
+  padding: 10px 25px;
+}
+th {
+  height: 0;
+  line-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: transparent;
+  border: none;
+  white-space: nowrap;
+}
+th div{
+  position: absolute;
+  background: transparent;
+  color: #fff;
+  padding: 9px 25px;
+  top: 0;
+  margin-left: -25px;
+  line-height: normal;
+  border-left: 1px solid #800;
+}
+th:first-child div{
+  border: none;
+}
+body{
+  background-color: #C29981;;
+}
+.busca{ 
+  font-size: x-large;
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px;
+}
+.navbar{
+  background-color: #ffffff;
+  width: 100%;
+  height: 60px;
+  padding: 1rem;
+  display: flex;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  
+  z-index: 10002;
+  
+}
+h2{
+  text-align: center;
+  padding-top: 5rem;
+}
+.body{
+  padding-top: 6rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+p{
+  text-align: center;
+  margin-top: 15%;
+  
+  
+}
+ .total-fixo{
+  border-radius: 15px;
+ }
+ 
+
+.filtro-balao {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 14px;
+  color: #333;
+  justify-content: space-between;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.remover-filtro {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #999;
+  margin-left: 8px;
+}
+
+.remover-filtro:hover {
+  color: #ff0000;
+}
+
+.filtros-container{
+  display: flex;
+  flex-wrap: nowrap
+}
+.botao-excel{
+  display: flex;
+  justify-content: flex-end
+}
