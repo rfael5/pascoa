@@ -22,7 +22,7 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
     setCarregando(true);
     setErro(null);
     try {
-      const response = await fetch(`http://localhost:3000/documentos-movimentos?dataInicio=${dataInicio}&dataFim=${dataFim}`);
+      const response = await fetch(`http://192.168.1.250/server-pascoa/documentos-movimentos?dataInicio=${dataInicio}&dataFim=${dataFim}`);
       if (!response.ok) throw new Error('Erro ao buscar dados');
       const json = await response.json();
       setDados(json);
