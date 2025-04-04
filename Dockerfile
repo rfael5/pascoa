@@ -22,7 +22,7 @@ RUN npm install --frozen-lockfile
 COPY . ./
 
 # Expose port for the development server
-EXPOSE 3000
+EXPOSE 3001
 CMD ["npm", "start"]
 
 # Stage 3: Production environment

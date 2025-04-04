@@ -1,7 +1,8 @@
 {
-  "name": "my-app",
+  "name": "pascoa",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/pascoa",
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
     "@testing-library/dom": "^10.4.0",
