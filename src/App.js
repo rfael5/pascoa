@@ -22,7 +22,7 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
     setCarregando(true);
     setErro(null);
     try {
-      const response = await fetch(`http://localhost:3000/documentos-movimentos?dataInicio=${dataInicio}&dataFim=${dataFim}`);
+      const response = await fetch(`http://localhost:4001/documentos-movimentos?dataInicio=${dataInicio}&dataFim=${dataFim}`);
       if (!response.ok) throw new Error('Erro ao buscar dados');
       const json = await response.json();
       setDados(json);
@@ -107,7 +107,7 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
         Descrição: DESCRICAO,
         Unidade: UNIDADE,
         Quantidade: L_QUANTIDADE.toFixed(2),
-        Valor: `R$ ${L_PRECOTOTAL.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`,
+        Valor: L_PRECOTOTAL,
         Negócio: IDX_NEGOCIO
       }))
     );
@@ -120,7 +120,7 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
         Quantidade: quantidade.toFixed(2),
         Unidade: UNIDADE,
         Pedidos: aparicoes,
-        "Valor Total": `R$ ${preco.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+        "Valor Total": preco
       }))
     );
 
