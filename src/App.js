@@ -11,18 +11,18 @@ function App() {
   const [erro, setErro] = useState(null);
   const [maisRepetidos, setMaisRepetidos] = useState([]);
   const [filtro, setFiltro] = useState('');
-const [filtrosAtivos, setFiltrosAtivos] = useState([]);
-
-
+  const [filtrosAtivos, setFiltrosAtivos] = useState([]);
+  
+  
   const buscarPedidos = async (e = null) => {
     if (e) e.preventDefault(); // Previne o comportamento padrão do formulário apenas se `e` existir
-
+    
     if (!dataInicio || !dataFim) return;
-
+    
     setCarregando(true);
     setErro(null);
     try {
-      const response = await fetch(`http://localhost:4001/documentos-movimentos?dataInicio=${dataInicio}&dataFim=${dataFim}`);
+      const response = await fetch(`http://192.168.1.250/server-pascoa/documentos-movimentos?dataInicio=${dataInicio}&dataFim=${dataFim}`);
       if (!response.ok) throw new Error('Erro ao buscar dados');
       const json = await response.json();
       setDados(json);
@@ -73,9 +73,15 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
   
   const atendeFiltros = (descricao) => {
     if (filtrosAtivos.length === 0) return true;
+  
     const descricaoNormalizada = removerAcentos(descricao.toLowerCase());
-    return filtrosAtivos.every(filtro => descricaoNormalizada.includes(filtro));
+  
+    return filtrosAtivos.some((filtro) =>
+      descricaoNormalizada.includes(removerAcentos(filtro.toLowerCase()))
+    );
   };
+  
+  
   
   const filtrarRepetidos = maisRepetidos.filter(item => atendeFiltros(item.DESCRICAO));
   const filtrarDados = dados.filter(item => atendeFiltros(item.DESCRICAO));
@@ -98,8 +104,10 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
 
   const exportarParaExcel = () => {
     const wsPedidos = XLSX.utils.json_to_sheet(
-      filtrarDados.map(({ PK_DOCTOPED, TPDOCTO, NOME, DTPREVISAO, CODPRODUTO, DESCRICAO, UNIDADE, L_QUANTIDADE, L_PRECOTOTAL, IDX_NEGOCIO }) => ({
+      filtrarDados.map(({ PK_DOCTOPED, DOCUMENTO, TPDOCTO,IDX_LINHA, NOME, DTPREVISAO, CODPRODUTO, DESCRICAO, UNIDADE, L_QUANTIDADE, L_PRECOTOTAL, IDX_NEGOCIO }) => ({
         Pedido: PK_DOCTOPED,
+        Numero_EC: DOCUMENTO,
+        Setor: IDX_LINHA,
         Tipo: TPDOCTO,
         Nome: NOME,
         Previsão: formatDate(DTPREVISAO),
@@ -148,7 +156,31 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
       <div className='body'>
 
 
-      
+        {/* <form onSubmit={handleSubmit}>
+            <label>
+              <i className="icon email-icon"></i>
+              <input
+                type="email"
+                placeholder="E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              <i className="icon senha-icon"></i>
+              <input
+                type="password"
+                placeholder="Senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required
+              />
+            </label>
+            <button type="submit" className="submit-btn">
+              {"Entrar"}
+            </button>
+          </form> */}
         <div className='busca'>
 
           <form onSubmit={buscarPedidos}>
@@ -200,23 +232,25 @@ const [filtrosAtivos, setFiltrosAtivos] = useState([]);
                 <table>
                   <thead>
                     <tr>
-                      <th>Pedido<div>Pedido </div></th>
-                      <th>Tipo<div>Tipo </div></th>
+                      <th>Numero EC<div>Numero EC</div></th>
+                      <th>Tipo<div>Tipo</div></th>
+                      <th>Setor<div>Setor</div></th>
                       <th>Nome<div>Nome </div></th>
                       <th>Previsão<div>Previsão</div></th>
                       <th>Produto<div>Produto</div></th>
                       <th>Descrição<div>Descrição</div></th>
                       <th>Unidade<div>Unidade</div></th>
-                      <th>Quantidade<div>Quantidade</div></th>
+                      <th>Qnt<div>Qnt</div></th>
                       <th>Valor<div>Valor</div></th>
-                      <th>Negócio<div>Negócio</div></th>
+                      <th>Ngc<div>Ngc</div></th>
                     </tr>
                   </thead>
                   <tbody>
                     {filtrarDados.map((item, index) => (
                       <tr key={index}>
-                        <td>{item.PK_DOCTOPED}</td>
+                        <td>{item.DOCUMENTO}</td>
                         <td>{item.TPDOCTO}</td>
+                        <td>{cleanText(item.IDX_LINHA)}</td>
                         <td>{item.NOME}</td>
                         <td>{formatDate(item.DTPREVISAO)}</td>
                         <td>{cleanText(item.CODPRODUTO)}</td>
